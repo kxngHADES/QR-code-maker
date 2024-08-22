@@ -7,7 +7,6 @@
 4. [Usage](#usage)
 5. [Donation Options](#donation-options)
 6. [Dependencies](#dependencies)
-7. [License](#license)
 
 ## Overview
 The **QR Code Maker** is a simple, user-friendly web application that allows users to generate custom QR codes. Users can input a website URL and customize the QR code's color and background color. The generated QR code can then be downloaded as a PNG image. Additionally, the site offers donation options to support the development and maintenance of the tool.
@@ -48,9 +47,6 @@ This project relies on the following external libraries:
 - **jQuery**: A fast, small, and feature-rich JavaScript library. ([CDN Link](https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js))
 - **jQuery QRCode Plugin**: A plugin for generating QR codes in jQuery. ([CDN Link](https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js))
 - **PayPal SDK**: Integrated for handling donations via PayPal.
-
-## License
-This project is licensed under the MIT License. Feel free to use, modify, and distribute the code as you see fit.
 
 ---
 
