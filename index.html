@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Maker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <style>
+        /* Basic styles for the page */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #qrCode {
+            margin-top: 20px;
+            border: 2px solid #ccc;
+            padding: 10px;
+            background: #fff;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], select, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #downloadLink {
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+        }
+        #downloadLink:hover {
+            text-decoration: underline;
+        }
+        .options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .donation {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .donation a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin: 5px 0;
+        }
+        .donation a:hover {
+            text-decoration: underline;
+        }
+        .donation-method {
+            display: none; /* Initially hidden */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Maker</h1>
+    <input type="text" id="websiteUrl" placeholder="Enter your website URL" />
+    <div class="options">
+        <label for="color">QR Code Color:</label>
+        <input type="color" id="color" value="#000000" />
+        <label for="bgColor">Background Color:</label>
+        <input type="color" id="bgColor" value="#ffffff" />
+    </div>
+    <button id="generateQr">Generate QR Code</button>
+    <div id="qrCode"></div>
+    <a id="downloadLink" style="display:none;" download="qr_code.png">Download QR Code</a>
+    
+    <div class="donation">
+        <h2>Support Us</h2>
+        <p>If you find this tool useful, consider donating:</p>
+        <button id="donateHere">Donate Here</button>
+        <button id="qrCodeDonate">Scan Donation</button>
+        <button id="clickMeDonate">Click Me to Donate</button>
+
+        <div id="donateHereMethod" class="donation-method">
+            <script src="https://www.paypal.com/sdk/js?client-id=BAALJYROwMaeeZWbijJ88Gn3buFmz7Pg3AXY9LdcaoCZSIBHdOygYj39ayLHQktaejuDqWsesmP_kw_xgQ&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+                <div id="paypal-container-DDR69UAKVFKNL"></div>
+                <script>
+                paypal.HostedButtons({
+                    hostedButtonId: "DDR69UAKVFKNL",
+                }).render("#paypal-container-DDR69UAKVFKNL")
+            </script>
+        </div>
+
+        <div id="qrCodeDonateMethod" class="donation-method">
+            <p>Scan to donate:</p>
+            <img src="PayPal.png" alt="Scan to Donate" style="width: 100px; height: auto; margin-top: 5px;" />
+        </div>
+
+        <div id="clickMeDonateMethod" class="donation-method">
+            <p>Direct Donation Link:</p>
+            <a href="https://www.paypal.com/ncp/payment/DDR69UAKVFKNL" target="_blank">Direct Donation Link</a>
+        </div>
+    </div>
+
+    <script>
+        $('#generateQr').click(function() {
+            const url = $('#websiteUrl').val();
+            const color = $('#color').val();
+            const bgColor = $('#bgColor').val();
+            $('#qrCode').empty().qrcode({
+                text: url,
+                width: 200,
+                height: 200,
+                fill: color,
+                background: bgColor
+            });
+            const canvas = $('#qrCode canvas')[0];
+            const dataUrl = canvas.toDataURL("image/png");
+            $('#downloadLink').attr('href', dataUrl).show();
+        });
+
+        $('#donateHere').click(function() {
+            $('.donation-method').hide(); // Hide all donation methods
+            $('#donateHereMethod').toggle(); // Show the selected method
+        });
+
+        $('#qrCodeDonate').click(function() {
+            $('.donation-method').hide(); // Hide all donation methods
+            $('#qrCodeDonateMethod').toggle(); // Show the selected method
+        });
+
+        $('#clickMeDonate').click(function() {
+            $('.donation-method').hide(); // Hide all donation methods
+            $('#clickMeDonateMethod').toggle(); // Show the selected method
+        });
+    </script>
+</body>
+</html>
