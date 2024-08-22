@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <style>
-        /* Basic styles for the page */
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
@@ -75,12 +75,84 @@
             text-decoration: underline;
         }
         .donation-method {
-            display: none; /* Initially hidden */
+            display: none;
             margin-top: 10px;
+        }
+
+        body.dark {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark h1 {
+            color: #fff;
+        }
+
+        #themeToggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            display: none;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider:after {
+            content: '🌞';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            font-size: 18px;
+            transition: .4s;
+        }
+        input:checked + .slider:after {
+            content: '🌙';
+            left: 30px;
         }
     </style>
 </head>
 <body>
+    <label class="switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="slider"></span>
+    </label>
     <h1>QR Code Maker</h1>
     <input type="text" id="websiteUrl" placeholder="Enter your website URL" />
     <div class="options">
@@ -139,18 +211,24 @@
         });
 
         $('#donateHere').click(function() {
-            $('.donation-method').hide(); // Hide all donation methods
-            $('#donateHereMethod').toggle(); // Show the selected method
+            $('.donation-method').hide(); 
+            $('#donateHereMethod').toggle(); 
         });
 
         $('#qrCodeDonate').click(function() {
-            $('.donation-method').hide(); // Hide all donation methods
-            $('#qrCodeDonateMethod').toggle(); // Show the selected method
+            $('.donation-method').hide();
+            $('#qrCodeDonateMethod').toggle(); 
         });
 
         $('#clickMeDonate').click(function() {
-            $('.donation-method').hide(); // Hide all donation methods
-            $('#clickMeDonateMethod').toggle(); // Show the selected method
+            $('.donation-method').hide();
+            $('#clickMeDonateMethod').toggle();
+        });
+
+        $('#themeToggle').change(function() {
+            $('body').toggleClass('dark');
+            const isDark = $('body').hasClass('dark');
+            $(this).next('.slider').css('background-color', isDark ? '#007bff' : '#ccc');
         });
     </script>
 </body>
